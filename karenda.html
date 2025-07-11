@@ -2,86 +2,77 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>アラーム設定</title>
+  <button onclick="location.href='alarm.html'">アラームを設定する</button>
+
+  <title>祝日カレンダー</title>
   <style>
     body {
       font-family: sans-serif;
-      padding: 20px;
     }
-    h1 {
-      margin-bottom: 20px;
+    table {
+      border-collapse: collapse;
+      width: 100%;
     }
-    select, input[type="time"] {
-      margin: 10px;
-      padding: 5px;
-      font-size: 16px;
+    th, td {
+      border: 1px solid #aaa;
+      width: 14.28%;
+      height: 80px;
+      text-align: center;
+      vertical-align: top;
     }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 15px;
+    .holiday {
+      color: red;
     }
-    .back-button {
-      background-color: #ccc;
-      color: #000;
-      margin-left: 10px;
+    .today {
+      background-color: #ffdcdc;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
-  <h1>アラーム設定</h1>
+  <div class="header">
+    <h1>2025年5月カレンダー</h1>
+    <button onclick="location.href='alarm.html'">アラームを設定する</button>
+  </div>
 
-  <form onsubmit="setAlarm(); return false;">
-    <label for="month">月:</label>
-    <select id="month">
-      <option value="1">1月</option>
-      <option value="2">2月</option>
-      <option value="3">3月</option>
-      <option value="4">4月</option>
-      <option value="5" selected>5月</option>
-      <option value="6">6月</option>
-      <option value="7">7月</option>
-      <option value="8">8月</option>
-      <option value="9">9月</option>
-      <option value="10">10月</option>
-      <option value="11">11月</option>
-      <option value="12">12月</option>
-    </select>
-
-    <label for="day">日:</label>
-    <select id="day">
-      <!-- 1〜31日をJavaScriptで生成 -->
-      <script>
-        for (let i = 1; i <= 31; i++) {
-          document.write(`<option value="${i}">${i}日</option>`);
-        }
-      </script>
-    </select>
-
-    <br>
-
-    <label for="time">アラーム時間:</label>
-    <input type="time" id="time" required>
-
-    <br>
-    <button type="submit">アラームをセットする</button>
-    <button type="button" class="back-button" onclick="goBack()">カレンダーに戻る</button>
-  </form>
-  </form>
+  <table>
+    <tr>
+      <th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
+    </tr>
+    <tr>
+      <td class="holiday">27</td><td>28</td><td>29</td><td>30</td><td>1</td><td>2</td><td>3</td>
+    </tr>
+    <tr>
+      <td class="holiday today">4 みどりの日</td><td>5 こどもの日</td><td>6 振替休日</td><td>7</td><td>8</td><td>9</td><td>10</td>
+    </tr>
+    <tr>
+      <td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td>
+    </tr>
+    <tr>
+      <td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td>
+    </tr>
+    <tr>
+      <td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td>
+    </tr>
+  </table>
 
   <script>
-    function setAlarm() {
-      const month = document.getElementById("month").value;
-      const day = document.getElementById("day").value;
-      const time = document.getElementById("time").value;
-
-      alert(`${month}月${day}日の ${time} にアラームを設定しました（※この例では保存されません）`);
+    // 今日の日付をハイライトする
+    const today = new Date();
+    if (today.getFullYear() === 2025 && today.getMonth() === 4) {
+      const day = today.getDate();
+      const cells = document.querySelectorAll("td");
+      cells.forEach(cell => {
+        if (cell.textContent.includes(day)) {
+          cell.classList.add("today");
+        }
+      });
     }
-    function goBack() {
-    window.location.href = "karenda.html";
-  }
-
-</script>
+  </script>
 </body>
 </html>
